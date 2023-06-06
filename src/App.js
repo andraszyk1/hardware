@@ -11,10 +11,10 @@ function App() {
   return (
     <Container>
       <Header />
-      <UnauthenticatedTemplate>
+      {/* <UnauthenticatedTemplate>
         <CustomCarousel />
-      </UnauthenticatedTemplate>
-      <AuthenticatedTemplate>
+      </UnauthenticatedTemplate> */}
+      {/* <AuthenticatedTemplate> */}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
@@ -27,7 +27,7 @@ function App() {
           </Routes>
         </BrowserRouter>
 
-      </AuthenticatedTemplate>
+      {/* </AuthenticatedTemplate> */}
     </Container>
   )
 }

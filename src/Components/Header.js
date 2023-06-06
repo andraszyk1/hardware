@@ -35,15 +35,18 @@ function Header() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                {isAuthenticated ? <>
+                {/* {isAuthenticated ? <> */}
                   <Nav.Link href="/logs">Logi</Nav.Link>
                   <Nav.Link href="/computers">Sprzęt {dataComputersCount ? <Badge bg="secondary">{dataComputersCount}</Badge> : ''}</Nav.Link>
                   <Nav.Link href="/users">Użytkownicy {dataUsersCount ? <Badge bg="secondary">{dataUsersCount}</Badge> : ''}</Nav.Link>
                   <NavDropdown title={profileName ? profileName : ""} id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1"><UserProfileButton>Profil</UserProfileButton></NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2"><SignOutButton /></NavDropdown.Item>
-                  </NavDropdown></> :
-                  <SignInButton />}
+                  </NavDropdown>
+                  {/* </> 
+                  : */}
+                  <SignInButton />
+                  {/* } */}
               </Nav>
             </Navbar.Collapse>
           </Container>
