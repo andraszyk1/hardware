@@ -1,0 +1,67 @@
+import React, { useState } from "react";
+import Tabela from "./Tabela";
+export default function TableV0Sortable(props) {
+    const { config, data } = props;
+    const [sortOrder, setSortOrder] = useState(null);
+    const [sortBy, setSortBy] = useState(null);
+
+    const handleClick = (label) => {
+        if (sortOrder === null) {
+            setSortOrder('asc');
+            setSortBy(label);
+        } else if (sortOrder === 'asc') {
+            setSortOrder('desc');
+            setSortBy(label);
+        } else if (sortOrder === 'desc') {
+            setSortOrder(null);
+            setSortBy(null);
+        }
+    }
+
+
+    const updatedConfig = config.map((column) => {
+        if (!column.sortValue) {
+            return column;
+        }
+        return {
+            ...column,
+            header: <th onClick={() => handleClick(column.label)}>
+                {getIcons(column.label, sortBy, sortOrder)}
+                {column.label}</th>
+        }
+    })
+
+    let sortedData = data;
+    if (sortOrder && sortBy) {
+        const { sortValue } = config.find(column => column.label === sortBy)
+        sortedData = [...data.sort((a, b) => {
+            const valueA = sortValue(a);
+            const valueB = sortValue(b);
+            const reverseOrder = sortOrder === 'asc' ? 1 : -1;
+            if (typeof valueA === 'string') {
+                return valueA.localeCompare(valueB) * reverseOrder;
+            } else {
+                return (valueA - valueB) * reverseOrder;
+            }
+        })]
+    }
+    return (
+
+
+        <div>
+            {sortOrder} - {sortBy}
+            <Tabela {...props} data={sortedData} config={updatedConfig} /></div>
+    )
+}
+function getIcons(label, sortBy, sortOrder) {
+    if (label !== sortBy) {
+        return 'Show bot icons'
+    }
+    if (sortOrder === null) {
+        return "Show both icons"
+    } else if (sortOrder === 'asc') {
+        return 'show up icon';
+    } else if (sortOrder === 'desc') {
+        return 'show down icon'
+    }
+}
